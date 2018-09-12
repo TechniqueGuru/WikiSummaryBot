@@ -6,7 +6,6 @@ import time
 
 # Fill in the following information.
 username = ""
-dev = ""
 try:
     reddit = praw.Reddit(client_id="", client_secret="",
                          username=username, password="",
@@ -128,19 +127,19 @@ while True:
 
             if phrase == None or summary == None or title == None or link == None:  # Reply informing the user something went wrong, and to contact the developer.
                 try:
-                    comment.reply(f"An error has occurred, please contact the [developer](https://www.reddit.com/message/compose/?to={dev}&subject=wikibot_error).\n***\n^[[PM](https://www.reddit.com/message/compose/?to={dev}&subject=Wikibot%20Inquiry) ^| ^Downvote ^to ^delete]")
+                    comment.reply(f"An error has occurred, please contact the [developer](https://www.reddit.com/message/compose/?to=DiamondxCrafting&subject=wikibot_error).\n***\n^[[PM](https://www.reddit.com/message/compose/?to=DiamondxCrafting&subject=Wikibot%20Inquiry) ^| ^Downvote ^to ^delete]")
                     save_comment_id(comment.id)
                 except Exception as e:
                     print(f"#Error, " + str(e))
             elif phrase == False:  # Informing user of correct usage.
                 try:
-                    comment.reply(f"Correct usage is '!wikibot [[text here]]'.\n***\n^[[PM](https://www.reddit.com/message/compose/?to={dev}&subject=Wikibot%20Inquiry) ^| ^Downvote ^to ^delete ^| ^[Github](https://github.com/TechniqueGuru/WikiSummaryBot)]")
+                    comment.reply(f"Correct usage is '!wikibot [[text here]]'.\n***\n^[[PM](https://www.reddit.com/message/compose/?to=DiamondxCrafting&subject=Wikibot%20Inquiry) ^| ^Downvote ^to ^delete ^| ^[Github](https://github.com/TechniqueGuru/WikiSummaryBot)]")
                     save_comment_id(comment.id)
                 except Exception as e:
                     print(f"#Error, " + str(e))
             elif summary == "NotFound" or title == "NotFound" or link == "NotFound":
                 try:
-                    comment.reply(f"'{phrase}' does not match any pages. Try another query!\n***\n^[[PM](https://www.reddit.com/message/compose/?to={dev}&subject=Wikibot%20Inquiry) ^| ^Downvote ^to ^delete ^| ^[Github](https://github.com/TechniqueGuru/WikiSummaryBot)]")
+                    comment.reply(f"'{phrase}' does not match any pages. Try another query!\n***\n^[[PM](https://www.reddit.com/message/compose/?to=DiamondxCrafting&subject=Wikibot%20Inquiry) ^| ^Downvote ^to ^delete ^| ^[Github](https://github.com/TechniqueGuru/WikiSummaryBot)]")
                     save_comment_id(comment.id)
                 except Exception as e:
                     print(f"#Error, " + str(e))
