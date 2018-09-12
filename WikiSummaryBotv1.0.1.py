@@ -43,7 +43,7 @@ def extract_phrase(comment_body):  # Extracts search term inbetween "[[" "]]" fr
         else:
             return comment_body[comment_body.find("[[") + 2:comment_body.find("]]")]
     except Exception as e:
-        print(f"Couldn't extract phrase; {e}.")
+        print(f"*Couldn't extract phrase; {e}.")
         return None
 
 
@@ -52,7 +52,6 @@ def wiki_link(phrase):  # Returns wikipedia page link.
         try:
             return wikipedia.page(phrase).url
         except wikipedia.exceptions.DisambiguationError as l:
-            print(f"Couldn't get wikipedia link; {l}.")
             for search_term in wikipedia.search(phrase):
                 try:
                     return wikipedia.page(search_term).url
@@ -62,7 +61,7 @@ def wiki_link(phrase):  # Returns wikipedia page link.
             if link == None:
                 return "NotFound"
         except wikipedia.exceptions.PageError as l:
-            print(f"Couldn't get wikipedia link; {l}.")
+            print(f"*Couldn't get wikipedia link; {l}.")
             return "NotFound"
     else:
         return "NotFound"
@@ -73,7 +72,6 @@ def wiki_title(phrase):  # Returns wikipedia page title.
         try:
             return wikipedia.page(phrase).title
         except wikipedia.exceptions.DisambiguationError as t:
-            print(f"Couldn't get wikipedia title; {t}.")
             for search_term in wikipedia.search(phrase):
                 try:
                     return wikipedia.page(search_term).title
@@ -83,7 +81,7 @@ def wiki_title(phrase):  # Returns wikipedia page title.
             if title == None:
                 return "NotFound"
         except wikipedia.exceptions.PageError as t:
-            print(f"Couldn't get wikipedia title; {t}.")
+            print(f"*Couldn't get wikipedia title; {t}.")
             return "NotFound"
     else:
         return "NotFound"
@@ -93,7 +91,6 @@ def wiki_summary(phrase):  # Returns wikipedia page summary.
     try:
         return wikipedia.summary(phrase)
     except wikipedia.exceptions.DisambiguationError as s:
-        print(f"Couldn't get wikipedia summary; {s}.")
         for search_term in wikipedia.search(phrase):
             try:
                 return wikipedia.summary(search_term)
@@ -103,7 +100,7 @@ def wiki_summary(phrase):  # Returns wikipedia page summary.
         if summary == None:
             return "NotFound"
     except wikipedia.exceptions.PageError as s:
-        print(f"Couldn't get wikipedia summary; {s}.")
+        print(f"*Couldn't get wikipedia summary; {s}.")
         return "NotFound"
 
 sub = reddit.subreddit("test")  # Subreddit to get comments from.
@@ -117,7 +114,6 @@ while True:
 
     for comment in sub_comments:
         last_id = comment.name
-        print(comment.body)
         if "!wikibot" in comment.body.lower():
             if comment_id_check(comment.id) or comment.author == username:  # Skip comment if already replied to.
                 continue
@@ -135,25 +131,25 @@ while True:
                     comment.reply(f"An error has occurred, please contact the [developer](https://www.reddit.com/message/compose/?to={dev}&subject=wikibot_error).\n***\n^[[PM](https://www.reddit.com/message/compose/?to={dev}&subject=Wikibot%20Inquiry) ^| ^Downvote ^to ^delete]")
                     save_comment_id(comment.id)
                 except Exception as e:
-                    print(f"#Error, "+str(e))
+                    print(f"#Error, " + str(e))
             elif phrase == False:  # Informing user of correct usage.
                 try:
                     comment.reply(f"Correct usage is '!wikibot [[text here]]'.\n***\n^[[PM](https://www.reddit.com/message/compose/?to={dev}&subject=Wikibot%20Inquiry) ^| ^Downvote ^to ^delete ^| ^[Github](https://github.com/TechniqueGuru/WikiSummaryBot)]")
                     save_comment_id(comment.id)
                 except Exception as e:
-                    print(f"#Error, "+str(e))
+                    print(f"#Error, " + str(e))
             elif summary == "NotFound" or title == "NotFound" or link == "NotFound":
                 try:
                     comment.reply(f"'{phrase}' does not match any pages. Try another query!\n***\n^[[PM](https://www.reddit.com/message/compose/?to={dev}&subject=Wikibot%20Inquiry) ^| ^Downvote ^to ^delete ^| ^[Github](https://github.com/TechniqueGuru/WikiSummaryBot)]")
                     save_comment_id(comment.id)
                 except Exception as e:
-                    print(f"#Error, "+str(e))
+                    print(f"#Error, " + str(e))
             else:
                 try:
                     comment.reply(f"#{title}\n\n{summary}\n\n[Wikipedia link]({link}).\n***\n^[[PM](https://www.reddit.com/message/compose/?to={dev}&subject=Wikibot%20Inquiry) ^| ^Downvote ^to ^delete ^| ^[Github](https://github.com/TechniqueGuru/WikiSummaryBot)]")
                     save_comment_id(comment.id)
                 except Exception as e:
-                    print(f"#Error, "+str(e))
+                    print(f"#Error, " + str(e))
 
     my_comments = user.comments.controversial('all')
     for comment in my_comments:  # Goes through each bot's comment and deletes comments with karma < 0.
