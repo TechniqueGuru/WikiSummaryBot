@@ -136,28 +136,24 @@ while True:
                     save_comment_id(comment.id)
                 except Exception as e:
                     print(f"#Error, "+str(e))
-                time.sleep(10 * 60)
             elif phrase == False:  # Informing user of correct usage.
                 try:
                     comment.reply(f"Correct usage is '!wikibot [[text here]]'.\n***\n^[[PM](https://www.reddit.com/message/compose/?to={dev}&subject=Wikibot%20Inquiry) ^| ^Downvote ^to ^delete]")
                     save_comment_id(comment.id)
                 except Exception as e:
                     print(f"#Error, "+str(e))
-                time.sleep(10 * 60)
             elif summary == "NotFound" or title == "NotFound" or link == "NotFound":
                 try:
                     comment.reply(f"'{phrase}' does not match any pages. Try another query!\n***\n^[[PM](https://www.reddit.com/message/compose/?to={dev}&subject=Wikibot%20Inquiry) ^| ^Downvote ^to ^delete]")
                     save_comment_id(comment.id)
                 except Exception as e:
                     print(f"#Error, "+str(e))
-                time.sleep(10 * 60)
             else:
                 try:
                     comment.reply(f"#{title}\n\n{summary}\n\n[Wikipedia link]({link}).\n***\n^[[PM](https://www.reddit.com/message/compose/?to={dev}&subject=Wikibot%20Inquiry) ^| ^Downvote ^to ^delete]")
                     save_comment_id(comment.id)
                 except Exception as e:
                     print(f"#Error, "+str(e))
-                time.sleep(10 * 60)
 
     my_comments = user.comments.controversial('all')
     for comment in my_comments:  # Goes through each bot's comment and deletes comments with karma < 0.
